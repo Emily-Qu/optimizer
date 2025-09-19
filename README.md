@@ -44,7 +44,7 @@ python data/openwebtext-small/prepare.py
 单卡运行时：
 
 ```sh
-python train.py config/train_openwebtext-small.py
+python train.py config/train_owt-small.py
 
 ```
 多卡运行时：
