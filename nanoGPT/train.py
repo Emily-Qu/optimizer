@@ -361,16 +361,23 @@ raw_model = model.module if ddp else model # unwrap DDP container if needed
 running_mfu = -1.0
 while True:
     # determine and set the learning rate for this iteration
-    # 计算基础学习率
-    base_lr = get_lr(iter_num) if decay_lr else learning_rate
-
-    for param_group in optimizer.param_groups:
-        if param_group.get('use_muon', False):
-            # Muon参数组：保持相对比例
-            param_group['lr'] = base_lr * (muon_lr / learning_rate)
-        else:
-            # Adam参数组：使用调度后的学习率
-            param_group['lr'] = base_lr
+    if decay_lr:
+        # 分别计算两种优化器的学习率
+        adam_lr = get_lr(iter_num)
+        muon_lr_scheduled = get_muon_lr(iter_num)
+        
+        for param_group in optimizer.param_groups:
+            if param_group.get('use_muon', False):
+                param_group['lr'] = muon_lr_scheduled
+            else:
+                param_group['lr'] = adam_lr
+    else:
+        # 使用原始学习率
+        for param_group in optimizer.param_groups:
+            if param_group.get('use_muon', False):
+                param_group['lr'] = muon_lr
+            else:
+                param_group['lr'] = learning_rate
 
     # evaluate the loss on train/val sets and write checkpoints
     if iter_num % eval_interval == 0 and master_process:
