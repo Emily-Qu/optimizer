@@ -59,6 +59,7 @@ use_muon_for_hidden_only = True  # recommended to use Muon only for hidden layer
 decay_lr = True
 warmup_iters = 100
 min_lr = 6e-5
+min_muon_lr = 2e-4  # Muon的最小学习率
 
 # system
 device = 'cuda'
