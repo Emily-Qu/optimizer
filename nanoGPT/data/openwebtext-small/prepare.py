@@ -8,8 +8,8 @@ from sklearn.model_selection import train_test_split
 
 # 输出目录
 out_dir = os.path.dirname(__file__)
-train_bin_file = os.path.join(out_dir, "train_3.bin")
-val_bin_file = os.path.join(out_dir, "val_3.bin")
+train_bin_file = os.path.join(out_dir, "train.bin")
+val_bin_file = os.path.join(out_dir, "val.bin")
 
 # 加载 OpenWebText 数据
 print("Loading OpenWebText dataset...")
