@@ -50,7 +50,7 @@ python train.py config/train_owt-small.py
 多卡运行时：
 
 ```sh
-torchrun --standalone --nproc_per_node=8 train.py config/train_openwebtext-small.py
+torchrun --standalone --nproc_per_node=8 train.py config/train_owt-small.py
 ```
 
 
